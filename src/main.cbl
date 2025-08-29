@@ -33,11 +33,19 @@
            ACCEPT TP-STR-A.
            MOVE FUNCTION LOWER-CASE(TP-STR-A) TO CLI-INPUT.
 
-           IF CLI-INPUT = "exit" THEN
+           IF CLI-INPUT = "help" THEN
+               PERFORM PROCEDURE-HELP
+           ELSE IF CLI-INPUT = "exit" THEN
                DISPLAY "exiting..."
            ELSE
                DISPLAY "unknown input"
            END-IF.
+       PROCEDURE-HELP.
+           DISPLAY "---------------------------------------------".
+           DISPLAY "HELP".
+           DISPLAY "github: https://github.com/theluqmn/dating"
+           DISPLAY " ".
+           DISPLAY "[setup]            setup dating".
        PROCEDURE-MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
            STOP RUN.
