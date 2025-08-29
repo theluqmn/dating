@@ -17,7 +17,7 @@ date calculation tool
 
 - [x] figure out the objective and scope
 - [x] basic cobol config
-- [ ] setup for date handling
+- [x] setup for date handling
 - [ ] set a date as present (default: current date)
 - [ ] calculate the date for # days in the future and past
 - [ ] calculate the # days after/before the present day
