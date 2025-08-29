@@ -40,10 +40,12 @@
 
            IF CLI-INPUT = "help" THEN
                PERFORM PROCEDURE-HELP
-           ELSE IF CLI-INPUT = "set" THEN
-               PERFORM PROCEDURE-SET
-           ELSE IF CLI-INPUT = "reset" THEN
-               PERFORM PROCEDURE-RESET
+           ELSE IF CLI-INPUT = "cd" THEN
+               PERFORM PROCEDURE-CURRENT-DATE
+           ELSE IF CLI-INPUT = "cd set" THEN
+               PERFORM CURRENT-DATE-SET
+           ELSE IF CLI-INPUT = "cd reset" THEN
+               PERFORM CURRENT-DATE-RESET
            ELSE IF CLI-INPUT = "exit" THEN
                DISPLAY "exiting..."
            ELSE
@@ -55,7 +57,24 @@
            DISPLAY "github: https://github.com/theluqmn/dating"
            DISPLAY " ".
            DISPLAY "[setup]            setup dating".
-       PROCEDURE-SET.
+
+       PROCEDURE-CURRENT-DATE.
+           DISPLAY "---------------------------------------------".
+           DISPLAY "CURRENT DATE".
+           DISPLAY " ".
+           DISPLAY
+           WS-CURRENT-DATE-YEAR "-"
+           WS-CURRENT-DATE-MONTH "-"
+           WS-CURRENT-DATE-DAY " " WITH NO ADVANCING.
+           
+           ACCEPT TP-DATE-A FROM DATE YYYYMMDD
+           IF WS-CURRENT-DATE = TP-DATE-A THEN
+               DISPLAY "(defaulted to today)"
+           ELSE
+               DISPLAY "(configured date)"
+           END-IF.
+           
+           CURRENT-DATE-SET.
            DISPLAY "---------------------------------------------".
            DISPLAY "SET CURRENT DATE".
            DISPLAY "note: please use YYYY-MM-DD".
@@ -63,22 +82,25 @@
 
            DISPLAY "date: " WITH NO ADVANCING.
            ACCEPT TP-STR-A.
+           
            MOVE TP-STR-A(1:4) TO TP-DATE-A(1:4).
            MOVE TP-STR-A(6:2) TO TP-DATE-A(5:2).
            MOVE TP-STR-A(9:2) TO TP-DATE-A(7:2).
            DISPLAY TP-DATE-A.
            MOVE TP-DATE-A TO WS-CURRENT-DATE.
+
            DISPLAY "set current date to "
            WS-CURRENT-DATE-YEAR "-"
            WS-CURRENT-DATE-MONTH "-"
            WS-CURRENT-DATE-DAY.
-       PROCEDURE-RESET.
+           
+           CURRENT-DATE-RESET.
            DISPLAY "---------------------------------------------".
            DISPLAY "RESET CURRENT DATE".
            DISPLAY " ".
 
            ACCEPT WS-CURRENT-DATE FROM DATE YYYYMMDD.
-
+           
            DISPLAY "current date now reset to default (today)".
        PROCEDURE-MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
