@@ -9,9 +9,16 @@ date calculation tool
 > [!NOTE]
 > this project is a work in progress
 
+- easy to use command line interface
+- change the present date to aid with your calculations
+
 ## how to use
 
+i am tired of explaining this.
+
 ## how this works
+
+this is a simple CLI-based date calculator. you can change the current date to help out with the computation.
 
 ## to-do
 
@@ -25,6 +32,6 @@ date calculation tool
 
 ## extras
 
-previously, i started [doos](https://github.com/theluqmn/doos) - a to-do list manager, to learn how to work with dates. after a while, i realise that its somewhat too complex for the sole objective, hence i moved to this project instead. i intended this to be a simple, one-night thing.
+previously, i started [doos](https://github.com/theluqmn/doos) - a to-do list manager, to learn how to work with dates. after a while, i realise that its somewhat too complex for the sole objective, hence i moved to this project instead. i intended this to be a simple, one-night thing (i did the calculation things)
 
 this project is licensed under the MIT license.

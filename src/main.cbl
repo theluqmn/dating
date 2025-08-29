@@ -16,6 +16,9 @@
            05 WS-CURRENT-DATE-DAY          PIC 9(2).
       *temporary variables
        01 TP-STR-A                         PIC X(32).
+       01 TP-STR-B                         PIC X(32).
+       01 TP-INT-A                         PIC 9(8).
+       01 TP-INT-B                         PIC 9(8).
        01 TP-DATE-A                        PIC 9(8).
        01 TP-DATE-A-REDEF REDEFINES TP-DATE-A.
            05 TP-DATE-A-YEAR               PIC 9(4).
@@ -56,8 +59,11 @@
            DISPLAY "HELP".
            DISPLAY "github: https://github.com/theluqmn/dating"
            DISPLAY " ".
-           DISPLAY "[setup]            setup dating".
-
+           DISPLAY "[cd]               view the current date".
+           DISPLAY "[cd set]           set the current date".
+           DISPLAY "[cd reset]         reset current date to today".
+           DISPLAY "-".
+           DISPLAY "[exit]             exit dating"
        PROCEDURE-CURRENT-DATE.
            DISPLAY "---------------------------------------------".
            DISPLAY "CURRENT DATE".
