@@ -19,7 +19,7 @@ date calculation tool
 - [x] basic cobol config
 - [x] setup for date handling
 - [x] CLI handler
-- [ ] set a date as present (default: current date)
+- [x] set a date as present (default: current date)
 - [ ] calculate the date for # days in the future and past
 - [ ] calculate the # days after/before the present day
 
