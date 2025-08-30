@@ -125,6 +125,7 @@
            ACCEPT TP-INT-B.
            DISPLAY "future/past (1/0): " WITH NO ADVANCING.
            ACCEPT TP-STR-A.
+           DISPLAY " ".
 
            IF TP-STR-A = "1" THEN
                COMPUTE TP-INT-A = FUNCTION
@@ -149,6 +150,7 @@
 
            DISPLAY "date:              " WITH NO ADVANCING.
            ACCEPT TP-STR-A.
+           DISPLAY " ".
 
            MOVE TP-STR-A(1:4) TO TP-DATE-A(1:4).
            MOVE TP-STR-A(6:2) TO TP-DATE-A(5:2).
@@ -159,7 +161,11 @@
            COMPUTE TP-INT-B = FUNCTION
            INTEGER-OF-DATE(WS-CURRENT-DATE).
            COMPUTE TP-INT-C = TP-INT-A - TP-INT-B.
-           DISPLAY "days before " TP-INT-C.
+           DISPLAY "days before "
+           WS-CURRENT-DATE-YEAR "-"
+           WS-CURRENT-DATE-MONTH "-"
+           WS-CURRENT-DATE-DAY ": "
+           TP-INT-C.
        PROCEDURE-MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
            STOP RUN.
