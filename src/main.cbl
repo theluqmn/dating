@@ -19,6 +19,7 @@
        01 TP-STR-B                         PIC X(32).
        01 TP-INT-A                         PIC 9(8).
        01 TP-INT-B                         PIC 9(8).
+       01 TP-INT-C                         PIC 9(8).
        01 TP-DATE-A                        PIC 9(8).
        01 TP-DATE-A-REDEF REDEFINES TP-DATE-A.
            05 TP-DATE-A-YEAR               PIC 9(4).
@@ -43,12 +44,16 @@
 
            IF CLI-INPUT = "help" THEN
                PERFORM PROCEDURE-HELP
+      *    current date
            ELSE IF CLI-INPUT = "cd" THEN
                PERFORM PROCEDURE-CURRENT-DATE
            ELSE IF CLI-INPUT = "cd set" THEN
                PERFORM CURRENT-DATE-SET
            ELSE IF CLI-INPUT = "cd reset" THEN
                PERFORM CURRENT-DATE-RESET
+      *    calculations
+           ELSE IF CLI-INPUT = "get date" THEN
+               PERFORM PROCEDURE-DATE-GET
            ELSE IF CLI-INPUT = "exit" THEN
                DISPLAY "exiting..."
            ELSE
@@ -63,7 +68,7 @@
            DISPLAY "[cd set]           set the current date".
            DISPLAY "[cd reset]         reset current date to today".
            DISPLAY "-".
-           DISPLAY "[exit]             exit dating"
+           DISPLAY "[exit]             exit dating".
        PROCEDURE-CURRENT-DATE.
            DISPLAY "---------------------------------------------".
            DISPLAY "CURRENT DATE".
@@ -108,6 +113,19 @@
            ACCEPT WS-CURRENT-DATE FROM DATE YYYYMMDD.
            
            DISPLAY "current date now reset to default (today)".
+       PROCEDURE-DATE-GET.
+           DISPLAY "---------------------------------------------".
+           DISPLAY "CALCULATE DATE FOR # DAYS".
+           DISPLAY "enter a negative value for days into the past"
+           DISPLAY " ".
+
+           DISPLAY "days:"
+           ACCEPT TP-INT-B.
+
+           COMPUTE TP-INT-A = FUNCTION INTEGER-OF-DATE(WS-CURRENT-DATE)
+           COMPUTE TP-INT-C = TP-INT-A + TP-INT-B
+           COMPUTE TP-DATE-A = FUNCTION DATE-OF-INTEGER(TP-INT-C)
+           DISPLAY TP-DATE-A.
        PROCEDURE-MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
            STOP RUN.

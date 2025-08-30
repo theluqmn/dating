@@ -27,7 +27,7 @@ this is a simple CLI-based date calculator. you can change the current date to h
 - [x] setup for date handling
 - [x] CLI handler
 - [x] set a date as present (default: current date)
-- [ ] calculate the date for # days in the future and past
+- [x] calculate the date for # days in the future and past
 - [ ] calculate the # days after/before the present day
 
 ## extras
