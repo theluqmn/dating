@@ -6,6 +6,9 @@ date calculation tool
 
 ## features
 
+> [!NOTE]
+> this project is bare-bones, and considered finished. there are no further updates in plan.
+
 - easy to use command line interface
 - change the present date to aid with your calculations
 - get days since a specific date
@@ -13,7 +16,20 @@ date calculation tool
 
 ## how to use
 
-i am tired of explaining this. its a simple CLI-based thing guys come on - its self explanatory.
+> [!WARNING]
+> the release only offers an executable compiled for Ubuntu. if you are not on the same distro or operating system, please refer to the [compiling it yourself](#compiling-it-yourself) guide.
+
+1. go to [releases](https://github.com/theluqmn/dating/releases/latest), download the latest release.
+2. navigate to the directory of the executable and simply run `./main`.
+
+### compiling it yourself
+
+the following are the steps for Ubuntu.
+
+1. install `gnucobol` using your package manager (download gnucobol).
+2. clone this repository.
+3. run `cobc src/main.cbl` in the project directory.
+4. run `./main` to run the program.
 
 ## how this works
 
