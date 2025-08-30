@@ -34,7 +34,6 @@
        PROCEDURE DIVISION.
        ACCEPT WS-CURRENT-DATE FROM DATE YYYYMMDD.
        DISPLAY "DATING - date calculation tool".
-       DISPLAY "current date: " WS-CURRENT-DATE.
        PERFORM PROCEDURE-MAIN.
        CLI-HANDLER.
            DISPLAY "---------------------------------------------".
@@ -54,6 +53,8 @@
       *    calculations
            ELSE IF CLI-INPUT = "get date" THEN
                PERFORM PROCEDURE-DATE-GET
+           ELSE IF CLI-INPUT = "get days" THEN
+               PERFORM PROCEDURE-DAYS-GET
            ELSE IF CLI-INPUT = "exit" THEN
                DISPLAY "exiting..."
            ELSE
@@ -67,6 +68,8 @@
            DISPLAY "[cd]               view the current date".
            DISPLAY "[cd set]           set the current date".
            DISPLAY "[cd reset]         reset current date to today".
+           DISPLAY "[get date]         get date after/before # days".
+           DISPLAY "[get days]         gets days between dates".
            DISPLAY "-".
            DISPLAY "[exit]             exit dating".
        PROCEDURE-CURRENT-DATE.
@@ -91,13 +94,12 @@
            DISPLAY "note: please use YYYY-MM-DD".
            DISPLAY " ".
 
-           DISPLAY "date: " WITH NO ADVANCING.
+           DISPLAY "date:              " WITH NO ADVANCING.
            ACCEPT TP-STR-A.
            
            MOVE TP-STR-A(1:4) TO TP-DATE-A(1:4).
            MOVE TP-STR-A(6:2) TO TP-DATE-A(5:2).
            MOVE TP-STR-A(9:2) TO TP-DATE-A(7:2).
-           DISPLAY TP-DATE-A.
            MOVE TP-DATE-A TO WS-CURRENT-DATE.
 
            DISPLAY "set current date to "
@@ -119,13 +121,45 @@
            DISPLAY "enter a negative value for days into the past"
            DISPLAY " ".
 
-           DISPLAY "days:"
+           DISPLAY "days:              " WITH NO ADVANCING.
            ACCEPT TP-INT-B.
+           DISPLAY "future/past (1/0): " WITH NO ADVANCING.
+           ACCEPT TP-STR-A.
 
-           COMPUTE TP-INT-A = FUNCTION INTEGER-OF-DATE(WS-CURRENT-DATE)
-           COMPUTE TP-INT-C = TP-INT-A + TP-INT-B
-           COMPUTE TP-DATE-A = FUNCTION DATE-OF-INTEGER(TP-INT-C)
-           DISPLAY TP-DATE-A.
+           IF TP-STR-A = "1" THEN
+               COMPUTE TP-INT-A = FUNCTION
+               INTEGER-OF-DATE(WS-CURRENT-DATE)
+               COMPUTE TP-INT-C = TP-INT-A + TP-INT-B
+               COMPUTE TP-DATE-A = FUNCTION
+               DATE-OF-INTEGER(TP-INT-C)
+           ELSE
+               COMPUTE TP-INT-A = FUNCTION
+               INTEGER-OF-DATE(WS-CURRENT-DATE)
+               COMPUTE TP-INT-C = TP-INT-A - TP-INT-B
+               COMPUTE TP-DATE-A = FUNCTION
+               DATE-OF-INTEGER(TP-INT-C)
+           END-IF.
+
+           DISPLAY "date: " TP-DATE-A.
+       PROCEDURE-DAYS-GET.
+           DISPLAY "---------------------------------------------".
+           DISPLAY "CALCULATE DAYS AFTER/BEFORE CURRENT DATE".
+           DISPLAY "note: please use YYYY-MM-DD"
+           DISPLAY " ".
+
+           DISPLAY "date:              " WITH NO ADVANCING.
+           ACCEPT TP-STR-A.
+
+           MOVE TP-STR-A(1:4) TO TP-DATE-A(1:4).
+           MOVE TP-STR-A(6:2) TO TP-DATE-A(5:2).
+           MOVE TP-STR-A(9:2) TO TP-DATE-A(7:2).
+
+           COMPUTE TP-INT-A = FUNCTION
+           INTEGER-OF-DATE(TP-DATE-A).
+           COMPUTE TP-INT-B = FUNCTION
+           INTEGER-OF-DATE(WS-CURRENT-DATE).
+           COMPUTE TP-INT-C = TP-INT-A - TP-INT-B.
+           DISPLAY "days before " TP-INT-C.
        PROCEDURE-MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
            STOP RUN.
